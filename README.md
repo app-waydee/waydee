@@ -14,7 +14,7 @@ Yapay zekâ ise ürün görselleri üretir ve markalara uygun influencer'ları b
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16%20%2B%20PostGIS-4169E1?logo=postgresql&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-ECS%20Fargate-FF9900?logo=amazonaws&logoColor=white)
 
-[Ekranlar](#-ekranlar) · [Mimari](#-mimari) · [Yapay Zekâ](#-yapay-zekâ) · [Ödeme](#-ödeme-altyapısı) · [AWS](#-aws-altyapısı) · [Kurulum](#-yerel-kurulum)
+[Ekranlar](#-ekranlar) · [Mimari](#-mimari) · [Yapay Zekâ](#-yapay-zekâ) · [Ödeme](#-ödeme-altyapısı) · [AWS](#-aws-altyapısı) · [Kurulum](#-yerel-kurulum) · [Ekip](#-ekip)
 
 </div>
 
@@ -36,6 +36,7 @@ Yapay zekâ ise ürün görselleri üretir ve markalara uygun influencer'ları b
 12. [Yerel Kurulum](#-yerel-kurulum)
 13. [Lisanslar](#-açık-kaynak-lisansları)
 14. [Yol Haritası](#-yol-haritası)
+15. [Ekip](#-ekip)
 
 ---
 
@@ -473,3 +474,15 @@ Waydee'nin altyapısı ağırlıklı olarak açık kaynak yazılımlar üzerine 
 - [ ] Harita uçlarında görünür alana göre filtreleme ve geometri sadeleştirme
 - [ ] Frontend için otomatik test altyapısı
 - [ ] Yapay zekâ maliyet optimizasyonu: hafif adımlarda küçük model
+
+---
+
+## 👥 Ekip
+
+![Waydee ekibi](docs/team.jpg)
+
+| Rol | Uzmanlık |
+|---|---|
+| **AI Developer** | Bilgisayar Mühendisi |
+| **Business Analyst** | Bilgisayar Mühendisi |
+| **Cloud Engineer** | Elektrik-Elektronik Mühendisi |
