@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      🔴 15 Ağu 2026 — TAM FAVICON SETİ (kullanıcı `files-2` klasörünü verdi).
+
+      Eskiden tek bir `favicon.svg` vardı. Yetmiyordu:
+      · **Safari ve eski Edge** SVG favicon'u desteklemez → sekmede boş kâğıt
+        ikonu çıkıyordu;
+      · **iOS'ta ana ekrana ekle** `apple-touch-icon` arar, yoksa sayfanın
+        ekran görüntüsünü kırpar;
+      · **Google arama sonuçları** genellikle `favicon.ico`yu okur.
+
+      ⚠️ SIRA ÖNEMLİ: tarayıcı listedeki **desteklediği son** eşleşmeyi seçer.
+      SVG önce, sonra PNG boyutları, `.ico` en sonda yedek olarak — böylece
+      modern tarayıcı vektörü, eski tarayıcı `.ico`yu alır.
+      ⚠️ `.ico` için `sizes` yazılmaz: çok boyutlu bir kapsayıcıdır.
+    -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" sizes="any" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      🔴 15 Ağu 2026 — BAŞLIK VE AÇIKLAMA ESKİ İŞ MODELİNİ ANLATIYORDU.
+
+      Buradaki metin "Dünya haritasında yerini satın al, kendi bölgeni yönet"
+      idi. Bu cümle 8 Ağustos'ta **doğruluğunu yitirdi**: daire km² ile satılan
+      bir ürün olmaktan çıkıp Premium üyeliğin hakkı oldu (V38). Vault indeksi
+      bunu açıkça uyarıyordu, ama kabuk güncellenmemişti.
+
+      Neden önemli: bot ön-render'ı `SeoService`ten gelir ve **doğru** metni
+      üretir — ancak ön-render'ı atlayan her yol (örn. `/index.html`) bu bayat
+      metni gösterir. Arama sonucundaki yanlış açıklamanın kaynağı buydu.
+      Metin `SeoService`in ürettiğiyle **hizalandı**.
+
+      ⚠️ Bu yalnız **yedek**tir: gerçek başlık/açıklama rota başına `useSeo`
+      ile, bota ise sunucu HTML'iyle verilir. Buradaki değer JS çalışmadan
+      önceki ilk karede ve ön-render'sız yollarda görünür.
+    -->
+    <meta
+      name="description"
+      content="Waydee — fotoğraflarını alışverişe aç, tek adresten tüm bağlantılarını paylaş ve dünya haritasında kendi mağazanı kur."
+    />
+    <title>Waydee · Fotoğraflarını alışverişe aç</title>
+    <!--
+      🔴 BURAYA SABİT `<link rel="canonical">` KOYMA — denendi, GERİ ALINDI.
+
+      Kabukta canonical yok (ölçüldü: `curl … | grep -c canonical` → 0) ve
+      eklemek ilk bakışta doğru görünüyor. Ama `lib/seo.ts` → `useSeo`
+      canonical'ı **ezmiyor, `appendChild` ile YENİSİNİ EKLİYOR**. Sabit bir
+      etiket bırakılsaydı `/mustafa` gibi her rotada **iki çelişkili canonical**
+      olurdu (kök + gerçek sayfa) ve Google çelişen sinyalde ikisini birden
+      yok sayar — yani düzeltme, düzeltmeye çalıştığı şeyi bozardı.
+
+      `/index.html` çift URL sorununu zaten nginx'teki **301** kökten çözüyor;
+      canonical'a gerek kalmıyor. Bot tarafında canonical'ı `SeoService`
+      sunucu HTML'inde üretiyor (ölçüldü: `<link rel="canonical" …>` var).
+
+      ⚠️ İleride sabit canonical istenirse önce `useSeo` "ekle" yerine
+      "varsa güncelle" davranışına çevrilmeli — ikisi birlikte yapılmalı.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--
+      🔴 10 Ağu 2026 — SABİT AĞIRLIKLAR YERİNE DEĞİŞKEN EKSEN (100..900).
+      linear.app "Inter Variable" kullanıyor ve üst çubuğunda ölçtüğüm birincil
+      düğme ağırlığı **510**'dur. Eski bağlantı yalnız 400/500/600/700 getiriyor,
+      tarayıcı 510'u en yakın sabite (500) yuvarlıyordu — yani Linear'ın
+      tipografisi bizde hiç oluşmuyordu. Değişken eksen ara ağırlıkları da
+      getirir ve tek dosya olduğu için ağ maliyeti de düşer.
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

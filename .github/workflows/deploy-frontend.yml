@@ -1,0 +1,54 @@
+# frontend · Docker imajı → Amazon ECR → Amazon ECS (Fargate) yeniden dağıtım.
+# Kimlik doğrulama GitHub OIDC ile yapılır: depoda AWS erişim anahtarı yoktur,
+# yalnız üstlenilecek rolün ARN'si (AWS_ROLE_ARN) bir GitHub sırrıdır.
+name: Deploy · frontend
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: eu-north-1
+  ECR_REPOSITORY: waydee-frontend
+  ECS_CLUSTER: waydee
+  ECS_SERVICE: waydee-frontend
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: AWS rolünü üstlen (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: ECR girişi
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: İmajı derle ve yükle
+        env:
+          REGISTRY: ${{ steps.ecr.outputs.registry }}
+        run: |
+          docker build \
+            --build-arg VITE_TURNSTILE_SITE_KEY="${{ secrets.VITE_TURNSTILE_SITE_KEY }}" \
+            --build-arg VITE_MAPBOX_TOKEN="${{ secrets.VITE_MAPBOX_TOKEN }}" \
+            -t "$REGISTRY/$ECR_REPOSITORY:latest" \
+            -t "$REGISTRY/$ECR_REPOSITORY:${GITHUB_SHA::7}" \
+            .
+          docker push --all-tags "$REGISTRY/$ECR_REPOSITORY"
+
+      - name: ECS servisini yeniden dağıt
+        run: |
+          aws ecs update-service \
+            --cluster "$ECS_CLUSTER" --service "$ECS_SERVICE" \
+            --force-new-deployment --no-cli-pager

@@ -1,0 +1,12 @@
+# Derleme bağlamına GİRMEYECEKLER.
+target
+.env
+.env.*
+!.env.example
+.git
+.gitignore
+.idea
+.vscode
+*.log
+Dockerfile
+.dockerignore

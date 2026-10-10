@@ -1,0 +1,23 @@
+# Ortam ve sırlar
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.jks
+client_secret_*.json
+
+# Derleme çıktıları ve bağımlılıklar
+node_modules/
+dist/
+target/
+*.tsbuildinfo
+.vite/
+
+# Editör / işletim sistemi
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+*.log

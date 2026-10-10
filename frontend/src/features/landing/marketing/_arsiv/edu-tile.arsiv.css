@@ -1,0 +1,259 @@
+/* ==================================================================
+   🗄️ ARŞİV — "Vitrinin hazır. Şimdi dünyaya aç." karosunun CSS'i.
+
+   🔴 26 Ağustos 2026, 100. tur — `index.css`ten ÇIKARILDI (kullanıcı
+   isteği). Bileşen tarafı: `_arsiv/EduTile.arsiv.tsx`.
+
+   ⚠️ Bu dosya hiçbir yerden `@import` EDİLMEZ; pakete girmez. Geri
+   getirmek için içeriği `index.css`e yapıştırmak yeterlidir — sınıf
+   adları (`waydee-bts-*`) başka hiçbir yerde kullanılmıyor.
+   ================================================================== */
+
+/* ==================================================================
+   🎓 EĞİTİM VİTRİNİ (apple.com `bts-2026` karosu)
+   ------------------------------------------------------------------
+   Ölçüldü (canlı apple.com, 1280px): karo zemini #F5F5F7 ·
+   başlık 56/60 w600 ls -0.28px #1d1d1f · alt metin 28/32 w400
+   ls 0.196px · buton #0071E3, radius 980px, padding 11px 21px,
+   17px/20px ls -0.374px.
+
+   🔴 GÖRSEL GEÇİCİDİR: `public/landing/bts-*.png` apple.com'dan alınan
+   kampanya görselidir, yalnız yapı denenebilsin diye duruyor.
+   Tasarımcının çekimleri **aynı dosya adlarının üzerine** yazılacak.
+   ⚠️ Bu hâliyle yayına alınmamalıdır.
+   ================================================================== */
+/* Karo: SABİT ORAN (1265×692 = 1.828), görsel tüm yüzeyi kaplar, yazı üstüne
+   biner. Ölçüldü: `padding: 56px 0 63px` · zemin #F5F5F7 · **yarıçap 0**. */
+.waydee-bts {
+  position: relative;
+  width: 100%;
+  max-width: 1265px;
+  margin: 0 auto;
+  aspect-ratio: 1265 / 692;
+  padding: 56px 0 63px;
+  background-color: #f5f5f7;
+  overflow: clip;
+  text-align: center;
+}
+/* Yazı bloğu.
+   🔴 570px → 860px. Referanstaki İngilizce metin 570px'e sığıyordu; Türkçe
+   çeviri BAŞLIĞI İKİ, alt metni ÜÇ satıra taşırıyordu ve blok uzayınca
+   "Keşfet" düğmesi aşağıdaki fotoğrafların ÜSTÜNE biniyordu (ölçüldü).
+   Genişletmek satır sayısını 1 + 2'ye düşürür; düğme yukarı çıkar. */
+.waydee-bts-copy {
+  position: relative;
+  z-index: 6;
+  width: 860px;
+  max-width: calc(100% - 48px);
+  margin: 0 auto;
+}
+/* Ölçüldü: h2 y=56 · alt metin y=122 · buton y=203 → aradaki boşluklar 6 ve 17px. */
+.waydee-bts-cta {
+  margin-top: 17px;
+}
+@media (max-width: 734px) {
+  .waydee-bts {
+    /* Ölçüldü (375px): yazı 145px + üst dolgu 40 + video 238 → ~455px.
+       Önceki 734/980 oranı 74px ölü boşluk bırakıyordu. */
+    aspect-ratio: 375 / 462;
+    padding: 40px 0 0;
+  }
+  /* 🔴 Hover katmanı mobilde KAPALI. İki sebep:
+     1. `SOLO_LAYOUT` yüzdeleri masaüstü kompozisyonundan (1222×460)
+        ölçüldü; mobil video **492×312** ile bambaşka bir çerçeve — aynı
+        yüzdeler orada yanlış yere ve yanlış boyutta düşüyor.
+     2. Dokunmatik cihazda hover yok; referansın kendi `.solo-box`
+        etkileşimi de yalnız işaretçili cihazlarda çalışıyor. */
+  /* ⚠️ Özgüllük dosya sırasını yenmeli: `.waydee-bts-solo`'nun
+     `display:block` kuralı bu bloktan SONRA geliyor. */
+  .waydee-bts-media .waydee-bts-solo,
+  .waydee-bts-media .waydee-bts-hit {
+    display: none;
+  }
+}
+/* Aynı koruma, dar olmayan ama işaretçisiz cihazlar için (tablet vb.). */
+@media (hover: none) {
+  /* ⚠️ Özgüllük dosya sırasını yenmeli: `.waydee-bts-solo`'nun
+     `display:block` kuralı bu bloktan SONRA geliyor. */
+  .waydee-bts-media .waydee-bts-solo,
+  .waydee-bts-media .waydee-bts-hit {
+    display: none;
+  }
+}
+.waydee-bts-h {
+  font-size: clamp(28px, 3.6vw, 46px);
+  line-height: 1.07;
+  font-weight: 600;
+  letter-spacing: -0.28px;
+  color: #1d1d1f;
+  /* ⚠️ Dengeli sarma: iki satıra düşmek zorunda kalan dar ekranlarda tek
+     kelimelik öksüz satır bırakmasın. */
+  text-wrap: balance;
+}
+/* 🔴 Masaüstünde başlık TEK SATIR. `nowrap` tek başına taşma riski taşır;
+   yazı tipi `vw` ile ölçeklendiği için 735px'te de 1440px'te de sığar
+   (33 karakterlik Türkçe başlık ~0,47em/karakter → 860px'lik blokta kalır). */
+@media (min-width: 735px) {
+  .waydee-bts-h {
+    white-space: nowrap;
+  }
+}
+.waydee-bts-sub {
+  margin-top: 6px;
+  /* Alt metin İKİ satır: 860px genişlikte 21px punto ile Türkçe metin iki
+     satıra oturuyor (ölçüldü). Eski 28px üç satır yapıyordu. */
+  font-size: clamp(16px, 1.65vw, 21px);
+  line-height: 1.25;
+  font-weight: 400;
+  letter-spacing: 0.196px;
+  color: #1d1d1f;
+  max-width: 820px;
+  margin-inline: auto;
+}
+.waydee-bts-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0071e3;
+  color: #fff;
+  font-size: 17px;
+  line-height: 20px;
+  letter-spacing: -0.374px;
+  border-radius: 980px;
+  padding: 11px 21px;
+  min-height: 44px; /* ölçüldü: referansta buton 84×44 */
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+.waydee-bts-btn:hover {
+  background-color: #0077ed;
+}
+/* 🔴 Animasyon bir WebM VİDEODUR (referansta `<video data-inline-media-
+   type="webm">`); PNG yalnız **start-frame**'dir ve video ilk kareyi
+   boyayınca söner. Önceki sürümde PNG'yi üçe bölüp CSS ile oynatmıştım —
+   "fotoğraflar oynamıyor" şikâyetinin sebebi buydu. */
+/* Katman sırası (altta→üstte):
+   1 durağan JPG · 2 hero videosu · 3 start-frame · 4 solo videoları · 5 hover alanları
+   `.waydee-bts-static` akışta duran TEK öğedir; karonun yüksekliğini o verir,
+   diğerleri onun üstüne `absolute` biner. Böylece geçişlerde zıplama olmaz. */
+/* 🔴 Medya katmanı KARONUN TAMAMINI kaplar — referansta
+   `.tile-image-wrapper` `absolute · inset 0 · 1265×692`'dir. */
+.waydee-bts-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  line-height: 0;
+}
+/* 🔴 Katmanlar karoyu TAM kaplar — referansın kendi değerleri:
+   `position:absolute · bottom:0 · height:100% · object-fit:cover ·
+   object-position: 50% 30%`.
+
+   ⚠️ Burada iki tur kaybettim, sebebi **yanlış görsel varyantıydı**:
+   Apple'ın `picture.static`'i beş kaynak taşır ve 1265×800 ekranda
+   `(min-height:776px)` kuralıyla **`largetall` (3008×692)** seçilir.
+   Onun yüksekliği karoyla **birebir 692** olduğu için `cover` ölçeği
+   tam **1.0**'dır: hiç büyütmez, yalnız 3008px'lik tuvalin ortadaki
+   1265px'ini gösterir. Ben `large` (3008×**580**) indirmiştim → ölçek
+   1,19 olup her şeyi şişiriyordu; sonra "alta yaslı şerit" diye
+   düzeltmeye çalışınca da figürler minicik kaldı.
+   **Ders: doğru kırılım dosyasını seçmeden geometriyi tartışma.** */
+.waydee-bts-static,
+.waydee-bts-video,
+.waydee-bts-startframe,
+.waydee-bts-solo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s linear;
+}
+/* 🔴 HOVER TAKASI ANINDA OLUR — geçiş YOK.
+   Durağan dilim ile solo videosu arasında 0,25 sn'lik opaklık geçişi
+   varken iki görüntü birbirinin üstünde eriyor ve aradaki ~%1'lik fark
+   "figür büyüyüp öne geliyor" hissi veriyordu. Referansta böyle bir
+   geçiş yok: video olduğu yerde, olduğu boyutta oynamaya başlar.
+   ⚠️ Giriş animasyonundan durağan kareye geçişte yumuşak geçiş KALIR
+   (yukarıdaki kural) — orası gerçekten bir sahne değişimidir. */
+.waydee-bts-solo,
+.waydee-bts-static {
+  transition: none;
+}
+/* ⚠️ `.waydee-bts-static` (JPG) ARTIK KULLANILMIYOR — durağan kare olarak
+   hero videosunun son karesi tutuluyor. Sebebi: JPG opaktı, arkasındaki
+   küreyi tamamen kapatıyordu; `mix-blend-mode: multiply` ile geçirgen
+   yapınca da noktalar **figürlerin ve beyaz konturların üstünden**
+   geçiyordu. Video alfa kanallı olduğu için bu sorunların ikisi de yok. */
+/* 🌐 Dönen nokta-matris dünya — figürlerin ARKASINDA (z-index 0).
+   Canvas ile çizilir; burada yalnız yerleşimi tanımlanır. */
+.waydee-bts-globe {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+/* ⚠️ VİDEOLAR farklı: doğal boyutları 1222×460 (oran 2.657) ve karonun
+   yüksekliğini tutmaz — `height:100%` verilirse ölçek 1,50 olup görüntü
+   şişer. Referansta da videolar kendi kabında (`.inline-media-wrapper`)
+   kendi oranlarıyla, **alta yaslı** durur. */
+.waydee-bts-video,
+.waydee-bts-startframe {
+  height: auto;
+}
+/* 🔴 SOLO klipleri TEK FİGÜRDÜR — ölçüldü: 400×350 · 360×350 · 368×350.
+   Karo genişliğine yaymak onları **3,2–3,5 kat** şişiriyordu (hover'da
+   dev görünmelerinin sebebi buydu). Her biri kendi **üçte birinde**,
+   alta yaslı ve doğal oranında durur: 1265/3 ≈ 422px genişlik →
+   ölçek ≈ 1.05, yani hero videosunun ölçeğiyle (1.035) aynı hizada. */
+.waydee-bts-solo {
+  width: 33.3333%; /* metadata gelince JS tam değeri yazar */
+  right: auto;
+  height: auto;
+}
+.waydee-bts-static[data-on='true'] {
+  opacity: 1;
+}
+.waydee-bts-static {
+  z-index: 1;
+}
+.waydee-bts-video {
+  z-index: 2;
+}
+.waydee-bts-startframe {
+  z-index: 3;
+}
+.waydee-bts-solo {
+  z-index: 4;
+}
+.waydee-bts-video[data-on='true'],
+.waydee-bts-startframe[data-on='true'],
+.waydee-bts-solo[data-on='true'] {
+  opacity: 1;
+}
+/* Hover alanları — referansın `.solo-box`'ları: karonun üçte birleri.
+   ⚠️ Görünmezdirler ama `pointer-events` almaları şart; klavye odağına
+   girmezler (`tabindex=-1` + `aria-hidden`) çünkü tamamen dekoratiftir. */
+.waydee-bts-hit {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 33.3333%;
+  z-index: 5;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: default;
+}
+@media (prefers-reduced-motion: reduce) {
+  .waydee-bts-static,
+  .waydee-bts-video,
+  .waydee-bts-startframe,
+  .waydee-bts-solo {
+    transition-duration: 0.01ms;
+  }
+}

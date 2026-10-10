@@ -1,0 +1,27 @@
+# Sırlar (VITE_ değerleri gizli olmasa da .env dosyası depoya girmez)
+.env
+.env.*
+!.env.example
+
+# Bağımlılıklar ve çıktı
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Loglar
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# 🔴 17 Ağu 2026 — Google OAuth istemci gizli anahtarı.
+# Console'dan indirilen dosya buraya, repo KÖKÜNE düşüyor ve adı tahmin
+# edilebilir. Bir `git add -A` onu doğrudan GitHub'a gönderirdi.
+client_secret_*.json
+*.apps.googleusercontent.com.json

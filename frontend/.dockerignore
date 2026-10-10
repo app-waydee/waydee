@@ -1,0 +1,21 @@
+# Derleme bağlamına GİRMEYECEKLER.
+# node_modules kopyalanırsa hem imaj şişer hem de pnpm kurulumu bozulur
+# (konteynerde TTY olmadığı için mevcut modül dizinini temizleyemez).
+node_modules
+dist
+.vite
+*.tsbuildinfo
+
+# Sırlar — Vite değişkenleri build-arg ile verilir, .env imaja girmez
+.env
+.env.*
+!.env.example
+
+.git
+.gitignore
+.idea
+.vscode
+*.log
+Dockerfile
+.dockerignore
+README.md

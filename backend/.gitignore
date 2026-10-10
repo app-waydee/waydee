@@ -1,0 +1,21 @@
+# Sırlar
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.jks
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Loglar
+*.log
