@@ -481,8 +481,8 @@ Waydee'nin altyapısı ağırlıklı olarak açık kaynak yazılımlar üzerine 
 
 ![Waydee ekibi](docs/team.jpg)
 
-| Rol | Uzmanlık |
-|---|---|
-| **AI Developer** | Bilgisayar Mühendisi |
-| **Business Analyst** | Bilgisayar Mühendisi |
-| **Cloud Engineer** | Elektrik-Elektronik Mühendisi |
+| İsim | Rol | Uzmanlık |
+|---|---|---|
+| **Damla Özdemir** | AI Developer | Bilgisayar Mühendisi |
+| **Yasin Karaca** | Business Analyst | Bilgisayar Mühendisi |
+| **Asiye Sude Tayipoğlu** | Cloud Engineer | Elektrik-Elektronik Mühendisi |
