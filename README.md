@@ -479,7 +479,7 @@ Waydee'nin altyapısı ağırlıklı olarak açık kaynak yazılımlar üzerine 
 
 ## 👥 Ekip
 
-![Waydee ekibi](docs/team.jpg)
+![Waydee ekibi](docs/waydee-team.jpg)
 
 | İsim | Rol | Uzmanlık |
 |---|---|---|
